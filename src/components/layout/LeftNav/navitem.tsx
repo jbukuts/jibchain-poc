@@ -16,7 +16,7 @@ const NavItem = (props: NavItemProps) => {
   const pathname = usePathname();
 
   const c = cn(
-    'flex flex-row items-center',
+    'flex flex-row items-center text-card-title',
     'uppercase text-sm',
     'py-2 pl-2.5 pr-1.5 h-12',
     'border-b border-border',

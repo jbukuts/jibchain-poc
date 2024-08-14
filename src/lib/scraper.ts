@@ -8,13 +8,17 @@ import { JSDOM } from 'jsdom';
  * @returns scraped content
  */
 export default async function scraper(url: string) {
-  const html = await fetch(url as string, {
-    method: 'GET',
-    cache: 'no-store'
-  }).then((r) => r.text());
+  try {
+    const html = await fetch(url as string, {
+      method: 'GET',
+      cache: 'no-store'
+    }).then((r) => r.text());
 
-  const doc = new JSDOM(html, { url: url as string });
-  const articleText = new Readability(doc.window.document).parse();
+    const doc = new JSDOM(html, { url: url as string });
+    const articleText = new Readability(doc.window.document).parse();
 
-  return articleText;
+    return articleText;
+  } catch {
+    return null;
+  }
 }

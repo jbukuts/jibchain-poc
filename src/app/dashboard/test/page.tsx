@@ -1,4 +1,12 @@
 import { PipelineRes } from '#/app/api/pipeline/types';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '#/components/ui/card';
 
 const getData = async () => {
   const res = await fetch('http://localhost:3000/api/pipeline', {
@@ -16,17 +24,23 @@ export default async function Test() {
   return (
     <div className='flex flex-col gap-2 p-4'>
       {res.data.map((item, idx) => {
-        const { title, summary, source, url } = item;
+        const { title, summary, source, url, date } = item;
 
         return (
-          <div
-            key={idx}
-            className='border border-solid border-border p-4 bg-white'>
-            <h4 className='font-bold text-lg mb-3'>{title}</h4>
-            <p>{source}</p>
-            <p>{summary}</p>
-            <a href={url}>Link</a>
-          </div>
+          <Card key={idx}>
+            <CardHeader>
+              <CardTitle>{title}</CardTitle>
+              <CardDescription>
+                {source} - {date}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>{summary}</p>
+            </CardContent>
+            <CardFooter className='gap-3'>
+              <a href={url}>Link</a>
+            </CardFooter>
+          </Card>
         );
       })}
     </div>
