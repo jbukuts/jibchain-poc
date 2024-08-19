@@ -143,13 +143,12 @@ export default function HolisticDashboard() {
   };
 
   return (
-    <div className='p-4 max-w-6xl mx-auto'>
-      <h1 className='text-2xl font-bold mb-4'>
+    <div className='p-4 mx-auto'>
+      <h1 className='text-3xl font-bold mb-4'>
         Comprehensive Risk Management Dashboard
       </h1>
 
       <Alert className='mb-4 bg-purple-100 border-purple-400 text-purple-700'>
-        <Globe className='h-4 w-4' />
         <AlertTitle>Multiple Scenario Analysis</AlertTitle>
         <AlertDescription>
           Visualizing potential outcomes across various aspects of the
@@ -157,81 +156,163 @@ export default function HolisticDashboard() {
         </AlertDescription>
       </Alert>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
-        <Card>
-          <CardHeader className='flex items-center bg-purple-100'>
-            <Globe className='mr-2 text-purple-600' />
-            <h2 className='text-xl font-semibold text-purple-600'>
+        <Card className='p-0'>
+          <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+            <Globe className=' text-purple-600' size={20} />
+            <h2 className='text-xl font-semibold text-purple-600 uppercase'>
               Major Risk Events
             </h2>
           </CardHeader>
-          <CardContent>
+          <CardContent className='p-4'>
             <ul>
               {worldEvents.map((event, index) => (
                 <li key={index} className='mb-2'>
                   <Button
                     variant='outline'
                     onClick={() => handleEventClick(event)}
-                    className={`w-full justify-start ${event.probability > 0.6 ? 'border-red-500 text-red-700' : ''}`}>
+                    className={`w-full justify-between ${event.probability > 0.6 ? 'border-red-500 text-red-700' : ''} ${selectedEvent?.name === event.name ? 'ring-1' : ''}`}>
                     {event.name} (Probability: {event.probability.toFixed(2)})
+                    {event.probability > 0.6 ? (
+                      <AlertTriangle size={16} />
+                    ) : null}
                   </Button>
                 </li>
               ))}
             </ul>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className='flex items-center bg-purple-100'>
-            <AlertTriangle className='mr-2 text-purple-600' />
-            <h2 className='text-xl font-semibold text-purple-600'>
+        <Card className='p-0'>
+          <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+            <AlertTriangle className='text-purple-600' size={20} />
+            <h2 className='text-xl font-semibold text-purple-600 uppercase'>
               Selected Event Details
             </h2>
           </CardHeader>
-          <CardContent>
+          <CardContent className='p-4'>
             {selectedEvent ? (
-              <div>
-                <h3 className='font-bold'>{selectedEvent.name}</h3>
-                <p>
-                  <strong>Probability:</strong>{' '}
-                  {selectedEvent.probability.toFixed(2)}
-                </p>
-                <p>
-                  <strong>Potential Impact Areas:</strong>{' '}
-                  {selectedEvent.impactAreas.join(', ')}
-                </p>
-                <p>
-                  <strong>Risk Mitigation Best Practice:</strong>{' '}
-                  {selectedEvent.mitigation}
-                </p>
-              </div>
+              <>
+                <h3 className='font-bold text-lg mb-1.5'>
+                  {selectedEvent.name}
+                </h3>
+                <div className='flex flex-col gap-2'>
+                  <div>
+                    <p>
+                      <strong>Probability:</strong>{' '}
+                    </p>
+                    <p
+                      className={
+                        selectedEvent.probability > 0.6 ? 'text-red-600' : ''
+                      }>
+                      {selectedEvent.probability.toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p>
+                      <strong>Potential Impact Areas</strong>{' '}
+                    </p>
+                    <p>{selectedEvent.impactAreas.join(', ')}</p>
+                  </div>
+
+                  <div>
+                    <p>
+                      <strong>Risk Mitigation Best Practice</strong>{' '}
+                    </p>
+                    <p>{selectedEvent.mitigation}</p>
+                  </div>
+                </div>
+              </>
             ) : (
-              <p>Select an event to view details.</p>
+              <p className='italic'>Select an event to view details.</p>
             )}
           </CardContent>
         </Card>
       </div>
-      <Card className='mb-4'>
-        <CardHeader className='flex items-center bg-purple-100'>
-          <FileText className='mr-2 text-purple-600' />
-          <h2 className='text-xl font-semibold text-purple-600'>
+      <div className='mb-4'>
+        <Card className='p-0'>
+          <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+            <Globe className=' text-purple-600' size={20} />
+            <h2 className='text-xl font-semibold text-purple-600 uppercase'>
+              Major Risk Events
+            </h2>
+          </CardHeader>
+          <CardContent className='p-4 flex gap-4'>
+            <ul className='w-[45%]'>
+              {worldEvents.map((event, index) => (
+                <li key={index} className='mb-2'>
+                  <Button
+                    variant='outline'
+                    onClick={() => handleEventClick(event)}
+                    className={`w-full justify-between ${event.probability > 0.6 ? 'border-red-500 text-red-700' : ''}`}>
+                    {event.name} (Probability: {event.probability.toFixed(2)})
+                    {event.probability > 0.6 ? (
+                      <AlertTriangle size={16} />
+                    ) : null}
+                  </Button>
+                </li>
+              ))}
+            </ul>
+            <div className='flex flex-col gap-2 flex-1'>
+              {selectedEvent ? (
+                <>
+                  <div>
+                    <p>
+                      <strong>Probability:</strong>{' '}
+                    </p>
+                    <p
+                      className={
+                        selectedEvent.probability > 0.6 ? 'text-red-600' : ''
+                      }>
+                      {selectedEvent.probability.toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p>
+                      <strong>Potential Impact Areas</strong>{' '}
+                    </p>
+                    <p>{selectedEvent.impactAreas.join(', ')}</p>
+                  </div>
+
+                  <div>
+                    <p>
+                      <strong>Risk Mitigation Best Practice</strong>{' '}
+                    </p>
+                    <p>{selectedEvent.mitigation}</p>
+                  </div>
+                </>
+              ) : (
+                <p className='italic'>Select an event to view details.</p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      <Card className='mb-4 p-0'>
+        <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+          <FileText className='text-purple-600' />
+          <h2 className='text-xl font-semibold text-purple-600 uppercase'>
             Article Summary
           </h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className='p-4'>
           {selectedEvent ? (
             <p>{selectedEvent.summary}</p>
           ) : (
-            <p>Select an event to view the related article summary.</p>
+            <p className='italic'>
+              Select an event to view the related article summary.
+            </p>
           )}
         </CardContent>
       </Card>
-      <Card className='mb-4'>
-        <CardHeader className='flex items-center bg-purple-100'>
-          <Layers className='mr-2 text-purple-600' />
+      <Card className='mb-4 p-0'>
+        <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+          <Layers className='text-purple-600' size={20} />
           <h2 className='text-xl font-semibold text-purple-600'>
             Risk Categories
           </h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className='p-4'>
           <div className='grid grid-cols-2 md:grid-cols-3 gap-2'>
             {impactAreas.map((area, index) => (
               <Button
@@ -244,14 +325,14 @@ export default function HolisticDashboard() {
           </div>
         </CardContent>
       </Card>
-      <Card className='mb-4'>
-        <CardHeader className='flex items-center bg-purple-100'>
-          <TrendingUp className='mr-2 text-purple-600' />
+      <Card className='mb-4 p-0'>
+        <CardHeader className='flex flex-row items-center  bg-purple-100 px-4 py-2.5 gap-2'>
+          <TrendingUp className='mr-2 text-purple-600' size={20} />
           <h2 className='text-xl font-semibold text-purple-600'>
             Risk Scenario Analysis: {selectedAspect}
           </h2>
         </CardHeader>
-        <CardContent>
+        <CardContent className='p-4'>
           <ResponsiveContainer width='100%' height={400}>
             <LineChart margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
               <XAxis dataKey='step' type='number' domain={[0, 9]} />
