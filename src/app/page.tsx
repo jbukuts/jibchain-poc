@@ -1,7 +1,9 @@
+import UnderConstruction from '#/components/custom/under-construction';
+
 export default function Home() {
   return (
-    <main>
-      <div>Test content</div>
-    </main>
+    <div className='flex h-full w-screen justify-center'>
+      <UnderConstruction />
+    </div>
   );
 }
