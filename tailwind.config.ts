@@ -19,8 +19,7 @@ const config = {
     },
     extend: {
       colors: {
-        border: 'hsla(var(--border))',
-        hover: 'hsl(var(--hover))',
+        border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
@@ -51,8 +50,7 @@ const config = {
         },
         card: {
           DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-          title: 'hsl(var(--card-title))'
+          foreground: 'hsl(var(--card-foreground))'
         }
       },
       borderRadius: {
