@@ -48,6 +48,14 @@ jobs:
         run: npm ci
 
       - name: Build static pages 🏗️
+        env:
+            NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+            NEW_API_TOPIC_URI: ${{ secrets.NEW_API_TOPIC_URI }}
+            WATSONX_AI_AUTH_TYPE: iam
+            WATSONX_AI_APIKEY: ${{ secrets.WATSONX_AI_APIKEY }}
+            WATSONX_AI_PROJECT_ID: ${{ secrets.WATSONX_AI_PROJECT_ID }}
+            WATSONX_AI_SERVICE_URL: https://us-south.ml.cloud.ibm.com
+            WATSONX_AI_CLASSIFIER_ID: ${{ secrets.WATSONX_AI_CLASSIFIER_ID }}
         run: npm run build
 
       - name: Upload artifact 📡
